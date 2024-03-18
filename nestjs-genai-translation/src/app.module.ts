@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { APP_GUARD } from '@nestjs/core';
 import { throttlerConfig } from '~configs/throttler.config';
 import { ThrottlerGuard } from '@nestjs/throttler';
+import { TranslationModule } from './translation/translation.module';
 
 @Module({
-  imports: [throttlerConfig],
+  imports: [throttlerConfig, TranslationModule.register()],
   controllers: [AppController],
   providers: [
     AppService,
