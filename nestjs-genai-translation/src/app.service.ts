@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { langchain } from 'langchain';
+// import { langchain } from 'langchain/chains';
 
 console.log(langchain);
 
@@ -10,6 +10,6 @@ export class AppService {
   }
 
   // translate() {
-  //   langchain.
+  //   // langchain.
   // }
 }
