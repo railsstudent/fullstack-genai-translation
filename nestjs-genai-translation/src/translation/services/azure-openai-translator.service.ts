@@ -3,13 +3,14 @@ import { Injectable } from '@nestjs/common';
 import { firstValueFrom, map } from 'rxjs';
 import { v4 } from 'uuid';
 import { env } from '~configs/env.config';
-import { Translator } from '~translation/interfaces/translator.interface';
+import { AzureTranslateResponse } from '~translation/interfaces/azure-openai-response.interface';
+import { TranslateText, Translator } from '~translation/interfaces/translator.interface';
 
 @Injectable()
 export class AzureOpenAITranslatorService implements Translator {
   constructor(private httpService: HttpService) {}
 
-  async translate(text: string, srcLanguageCode: string, targetLanguageCode: string): Promise<string> {
+  async translate({ text, srcLanguageCode, targetLanguageCode }: TranslateText): Promise<{ text: string }> {
     // https://learn.microsoft.com/en-us/azure/ai-services/translator/language-support
     // const srcLanguage = ISO6391.getName(srcLanguageCode);
     // const targetLanguage = ISO6391.getName(targetLanguageCode);
@@ -24,7 +25,7 @@ export class AzureOpenAITranslatorService implements Translator {
 
     const data = [{ text }];
     const result$ = this.httpService
-      .post(env.AZURE_OPENAI_TRANSLATOR.URL, data, {
+      .post<AzureTranslateResponse[]>(env.AZURE_OPENAI_TRANSLATOR.URL, data, {
         headers: {
           'Ocp-Apim-Subscription-Key': env.AZURE_OPENAI_TRANSLATOR.KEY,
           'Ocp-Apim-Subscription-Region': env.AZURE_OPENAI_TRANSLATOR.LOCATION,
@@ -38,9 +39,10 @@ export class AzureOpenAITranslatorService implements Translator {
         },
         responseType: 'json',
       })
-      .pipe(map(({ data }) => data));
-    const translations = firstValueFrom(result$);
-
-    return translations;
+      .pipe(
+        map(({ data }) => data?.[0]?.translations?.[0].text || 'No result'),
+        map((text) => ({ text })),
+      );
+    return firstValueFrom(result$);
   }
 }
