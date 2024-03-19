@@ -1,9 +1,11 @@
+import { HttpModule } from '@nestjs/axios';
 import { DynamicModule, Module } from '@nestjs/common';
-import { AzureOpenAITranslatorService } from './services/azure-openai-translator.service';
 import { TRANSLATOR } from './constants/translator.constant';
 import { TranslatorController } from './controllers/translator.controller';
+import { AzureOpenAITranslatorService } from './services/azure-openai-translator.service';
 
 @Module({
+  imports: [HttpModule],
   controllers: [TranslatorController],
 })
 export class TranslationModule {
@@ -18,7 +20,6 @@ export class TranslationModule {
           useClass: translatorService,
         },
       ],
-      exports: [TRANSLATOR],
     };
   }
 }
