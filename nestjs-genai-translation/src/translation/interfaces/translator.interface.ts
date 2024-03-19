@@ -1,9 +1,5 @@
-export interface TranslateText {
-  text: string;
-  srcLanguageCode: string;
-  targetLanguageCode: string;
-}
+import { TranslateTextDto } from '~translation/dtos/translate-text.dto';
 
 export interface Translator {
-  translate(input: TranslateText): Promise<{ text: string }>;
+  translate(input: TranslateTextDto): Promise<{ text: string }>;
 }

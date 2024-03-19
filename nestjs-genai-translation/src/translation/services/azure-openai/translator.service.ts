@@ -3,26 +3,16 @@ import { Injectable } from '@nestjs/common';
 import { firstValueFrom, map } from 'rxjs';
 import { v4 } from 'uuid';
 import { env } from '~configs/env.config';
+import { TranslateTextDto } from '~translation/dtos/translate-text.dto';
 import { AzureTranslateResponse } from '~translation/interfaces/azure-openai-response.interface';
-import { TranslateText, Translator } from '~translation/interfaces/translator.interface';
+import { Translator } from '~translation/interfaces/translator.interface';
 
 @Injectable()
 export class AzureOpenAITranslatorService implements Translator {
   constructor(private httpService: HttpService) {}
 
-  async translate({ text, srcLanguageCode, targetLanguageCode }: TranslateText): Promise<{ text: string }> {
+  async translate({ text, srcLanguageCode, targetLanguageCode }: TranslateTextDto): Promise<{ text: string }> {
     // https://learn.microsoft.com/en-us/azure/ai-services/translator/language-support
-    // const srcLanguage = ISO6391.getName(srcLanguageCode);
-    // const targetLanguage = ISO6391.getName(targetLanguageCode);
-
-    // if (!srcLanguage) {
-    //   throw new BadRequestException(`${srcLanguageCode} is an invalid language code`);
-    // }
-
-    // if (!targetLanguage) {
-    //   throw new BadRequestException(`${targetLanguage} is an invalid language code`);
-    // }
-
     const data = [{ text }];
     const result$ = this.httpService
       .post<AzureTranslateResponse[]>(env.AZURE_OPENAI_TRANSLATOR.URL, data, {

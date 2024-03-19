@@ -1,10 +1,13 @@
 import { z } from 'zod';
+import { LanguageCodeEnum } from '../enums/azure-openai/languages.enum';
 
 export const translateTextSchema = z
   .object({
-    text: z.string(),
-    srcLanguageCode: z.string(),
-    targetLanguageCode: z.string(),
+    text: z.string({
+      required_error: 'Text is required',
+    }),
+    srcLanguageCode: LanguageCodeEnum,
+    targetLanguageCode: LanguageCodeEnum,
   })
   .required();
 
