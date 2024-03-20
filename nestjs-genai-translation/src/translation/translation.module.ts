@@ -1,7 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { DynamicModule, Module } from '@nestjs/common';
 import { TRANSLATOR } from './constants/translator.constant';
-import { TranslatorController } from './controllers/translator.controller';
+import { TranslatorController } from './http/translator.controller';
 import { AzureOpenAITranslatorService } from './services/azure-openai/translator.service';
 
 @Module({
@@ -9,7 +9,9 @@ import { AzureOpenAITranslatorService } from './services/azure-openai/translator
   controllers: [TranslatorController],
 })
 export class TranslationModule {
-  static register(type: 'azureOpenAi' | 'google' = 'azureOpenAi'): DynamicModule {
+  static register(
+    type: 'azureOpenAi' | 'langchain_googlechatmodel' | 'google_tranlsate' = 'azureOpenAi',
+  ): DynamicModule {
     const translatorService = type === 'azureOpenAi' ? AzureOpenAITranslatorService : AzureOpenAITranslatorService;
 
     return {

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { LanguageCodeEnum } from '../enums/azure-openai/languages.enum';
+import { LanguageCodeEnum } from '~translation/enums/azure-openai/languages.enum';
 
 export const translateTextSchema = z
   .object({

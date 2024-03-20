@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { firstValueFrom, map } from 'rxjs';
 import { v4 } from 'uuid';
 import { env } from '~configs/env.config';
-import { TranslateTextDto } from '~translation/dtos/translate-text.dto';
+import { TranslateTextDto } from '~translation/http/dtos/translate-text.dto';
 import { AzureTranslateResponse } from '~translation/interfaces/azure-openai-response.interface';
 import { Translator } from '~translation/interfaces/translator.interface';
 
