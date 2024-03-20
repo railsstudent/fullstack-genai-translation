@@ -4,11 +4,11 @@ import { firstValueFrom, map } from 'rxjs';
 import { v4 } from 'uuid';
 import { env } from '~configs/env.config';
 import { TranslateTextDto } from '~translation/http/dtos/translate-text.dto';
-import { AzureTranslateResponse } from '~translation/interfaces/azure-openai-response.interface';
-import { Translator } from '~translation/interfaces/translator.interface';
+import { Translator } from './interfaces/translator.interface';
+import { AzureTranslateResponse } from './interfaces/azure-openai-response.interface';
 
 @Injectable()
-export class AzureOpenAITranslatorService implements Translator {
+export class AzureTranslatorService implements Translator {
   constructor(private httpService: HttpService) {}
 
   async translate({ text, srcLanguageCode, targetLanguageCode }: TranslateTextDto): Promise<{ text: string }> {

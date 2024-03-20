@@ -1,4 +1,4 @@
-export const AZURE_OPENAI_LANGUAGE_CODES = [
+export const LANGUAGE_CODES = [
   {
     name: 'English',
     code: 'en',
