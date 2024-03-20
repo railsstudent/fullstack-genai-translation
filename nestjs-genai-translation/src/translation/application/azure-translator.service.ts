@@ -3,15 +3,16 @@ import { Injectable } from '@nestjs/common';
 import { firstValueFrom, map } from 'rxjs';
 import { v4 } from 'uuid';
 import { env } from '~configs/env.config';
-import { TranslateTextDto } from '~translation/http/dtos/translate-text.dto';
+import { AzureTranslateResponse } from './interfaces/azure-response.interface';
+import { TranslateInput } from './interfaces/translator-input.interface';
 import { Translator } from './interfaces/translator.interface';
-import { AzureTranslateResponse } from './interfaces/azure-openai-response.interface';
+import { TranslationResult } from './interfaces/translation-result.interface';
 
 @Injectable()
 export class AzureTranslatorService implements Translator {
   constructor(private httpService: HttpService) {}
 
-  async translate({ text, srcLanguageCode, targetLanguageCode }: TranslateTextDto): Promise<{ text: string }> {
+  async translate({ text, srcLanguageCode, targetLanguageCode }: TranslateInput): Promise<TranslationResult> {
     // https://learn.microsoft.com/en-us/azure/ai-services/translator/language-support
     const data = [{ text }];
     const result$ = this.httpService
