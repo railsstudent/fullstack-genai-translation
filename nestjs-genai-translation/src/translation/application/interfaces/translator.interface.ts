@@ -1,5 +1,5 @@
-import { TranslateTextDto } from '~translation/http/dtos/translate-text.dto';
+import { TranslateInput } from './translator-input.interface';
 
 export interface Translator {
-  translate(input: TranslateTextDto): Promise<{ text: string }>;
+  translate(input: TranslateInput): Promise<{ text: string }>;
 }
