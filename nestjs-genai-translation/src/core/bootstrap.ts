@@ -36,12 +36,10 @@ export class Bootstrap {
 
   setupSwagger() {
     const config = new DocumentBuilder()
-      .setTitle('Gemini example')
-      .setDescription('Generative AI Translator API description')
+      .setTitle('Generative AI Translator')
+      .setDescription('Integrate with Generative AI to translate a text from one language to another language')
       .setVersion('1.0')
-      .addTag('Azure OpenAI')
-      .addTag('Langchain Gemini AI Chat Model')
-      .addTag('Google Translate Library')
+      .addTag('Azure OpenAI, Langchain Gemini AI Model, Google Translate')
       .build();
     const document = SwaggerModule.createDocument(this.app, config);
     SwaggerModule.setup('api', this.app, document);
