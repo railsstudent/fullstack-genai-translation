@@ -3,10 +3,18 @@ import { Injectable } from '@nestjs/common';
 import { firstValueFrom, map } from 'rxjs';
 import { v4 } from 'uuid';
 import { env } from '~configs/env.config';
-import { AzureTranslateResponse } from './interfaces/azure-response.interface';
 import { TranslateInput } from './interfaces/translator-input.interface';
 import { Translator } from './interfaces/translator.interface';
 import { TranslationResult } from './interfaces/translation-result.interface';
+
+type AzureTranslateResponse = {
+  translations: [
+    {
+      text: string;
+      to: string;
+    },
+  ];
+};
 
 @Injectable()
 export class AzureTranslatorService implements Translator {
