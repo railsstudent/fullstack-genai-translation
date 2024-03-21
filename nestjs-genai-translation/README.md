@@ -24,24 +24,56 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This repo uses Azure OpenAI to translate text from one language to another language
 
 ## Installation
 
 ```bash
 $ npm install
+$ cd ./nestjs-genai-translate
+$ npm install
 ```
+
+## Sign up Azure OpenAI
+
+- Create a new account in azure.portal.com
+- Search Translator, and create a new Translator
+- Click "Keys and Endpoint", and then copy API Keys, Text Translation URL, and Location/Region
+
+## Environment variables
+
+- Copy `.env.example` to `.env` and update the environment variables
+
+```bash
+$ cd ./nestjs-genai-translate
+$ cp .env.example .env
+```
+
+```
+PORT=3000
+AZURE_OPENAI_TRANSLATOR_API_KEY=<translator api key>
+AZURE_OPENAI_TRANSLATOR_URL=<translator url>/translate
+AZURE_OPENAI_TRANSLATOR_API_VERSION="3.0"
+AZURE_OPENAI_LOCATION=<location>
+```
+
+## Configure the AI service
+
+- TODO
 
 ## Running the app
 
 ```bash
 # development
+$ cd ./nestjs-genai-translate
 $ npm run start
 
 # watch mode
+$ cd ./nestjs-genai-translate
 $ npm run start:dev
 
 # production mode
+$ cd ./nestjs-genai-translate
 $ npm run start:prod
 ```
 
@@ -57,6 +89,10 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Swagger
+
+Type http://localhost:3000/api to show the Swagger documentation and test out `POST /translator` endpoint
 
 ## Support
 
