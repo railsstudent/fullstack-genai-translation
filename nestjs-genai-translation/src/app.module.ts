@@ -7,7 +7,7 @@ import { ThrottlerGuard } from '@nestjs/throttler';
 import { TranslationModule } from './translation/translation.module';
 
 @Module({
-  imports: [throttlerConfig, TranslationModule.register()],
+  imports: [throttlerConfig, TranslationModule.register('langchain_googleChatModel')],
   controllers: [AppController],
   providers: [
     AppService,
