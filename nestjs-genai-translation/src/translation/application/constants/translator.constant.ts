@@ -1,1 +1,2 @@
 export const TRANSLATOR = 'TRANSLATOR';
+export const GEMINI_CHAT_MODEL = 'GEMINI_CHAT_MODEL';
