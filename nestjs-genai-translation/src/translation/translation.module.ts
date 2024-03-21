@@ -2,10 +2,11 @@ import { HttpModule } from '@nestjs/axios';
 import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { AzureTranslatorService } from './application/azure-translator.service';
 import { TRANSLATOR } from './application/constants/translator.constant';
-import { TranslatorController } from './http/translator.controller';
-import { Integration } from './types/integration.type';
 import { LangchainTranslatorService } from './application/langchain-translator.service';
 import { GEMINI_CHAT_MODEL_PROVIDER } from './application/providers/gemini.provider';
+import { GEMINI_LLM_CHAIN_PROVIDER } from './application/providers/translation-chain.provider';
+import { TranslatorController } from './http/translator.controller';
+import { Integration } from './types/integration.type';
 
 @Module({
   imports: [HttpModule],
@@ -26,7 +27,7 @@ export class TranslationModule {
     ];
 
     if (type === 'langchain_googleChatModel') {
-      providers.push(GEMINI_CHAT_MODEL_PROVIDER);
+      providers.push(GEMINI_CHAT_MODEL_PROVIDER, GEMINI_LLM_CHAIN_PROVIDER);
     }
 
     return {
