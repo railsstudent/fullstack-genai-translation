@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { Integration } from '~translation/types/integration.type';
 
 dotenv.config();
 
@@ -14,4 +15,5 @@ export const env = {
     API_KEY: process.env.GOOGLE_GEMINI_API_KEY || '',
     MODEL_NAME: process.env.GOOGLE_GEMINI_MODEL || '',
   },
+  AI_SERVICE: (process.env.AI_SERVICE || 'langchain_googleChatModel') as Integration,
 };
