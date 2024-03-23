@@ -30,46 +30,9 @@ This repo uses Azure OpenAI/Langchain + Gemini API to translate text from one la
 
 ```bash
 $ npm install
+$ cd ./nestjs-genai-translation
+$ npm install
 ```
-
-## Sign up Azure OpenAI
-
-- Create a new account in azure.portal.com
-- Search Translator, and create a new Translator
-- Click "Keys and Endpoint", and then copy API Keys, Text Translation URL, and Location/Region
-
-## Get Gemini API Key
-
-- Navigate to https://aistudio.google.com/app/apikey
-- Click Create API key button to generate API key
-
-## Environment variables
-
-- Copy `.env.example` to `.env` and update the environment variables
-
-```bash
-$ cp .env.example .env
-```
-
-```
-PORT=3000
-AZURE_OPENAI_TRANSLATOR_API_KEY=<translator api key>
-AZURE_OPENAI_TRANSLATOR_URL=<translator url>/translate
-AZURE_OPENAI_TRANSLATOR_API_VERSION="3.0"
-AZURE_OPENAI_LOCATION=eastasia
-GOOGLE_GEMINI_API_KEY=<google gemini api key>
-GOOGLE_GEMINI_MODEL=gemini-pro
-AI_SERVICE=langchain_googleChatModel
-```
-
-## Configure the AI service
-
-The application supports azureOpenAI or langchain_googleChatModel to translate text. To choose the AI service, you have to update AI_SERVICE in .env. Valid values lf AI_SERVICE are azureOpenAI and langchain_googleChatModel.
-
-Definition:
-
-- azureOpenAI - Azure OpenAI Translator
-- langchain_googleChatModel - Langchain JS, Google Chat Model and Gemini API
 
 ## Running the app
 
@@ -78,39 +41,10 @@ Definition:
 $ npm run start
 
 # watch mode
+$ cd ./nestjs-genai-translation
 $ npm run start:dev
 
 # production mode
+$ cd ./nestjs-genai-translation
 $ npm run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Swagger
-
-Type http://localhost:3000/api to show the Swagger documentation and test out `POST /translator` endpoint
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
