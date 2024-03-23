@@ -65,16 +65,18 @@ AZURE_OPENAI_LOCATION=eastasia
 GOOGLE_GEMINI_API_KEY=<google gemini api key>
 GOOGLE_GEMINI_MODEL=gemini-pro
 AI_SERVICE=langchain_googleChatModel
+GOOGLE_PROJECT_ID=<google project id>
 ```
 
 ## Configure the AI service
 
-The application supports azureOpenAI or langchain_googleChatModel to translate text. To choose the AI service, you have to update AI_SERVICE in .env. Valid values lf AI_SERVICE are azureOpenAI and langchain_googleChatModel.
+The application supports azureOpenAI, langchain_googleChatModel, google_translate to translate text. To choose the AI service, you have to update AI_SERVICE in .env. Valid values lf AI_SERVICE are azureOpenAI and langchain_googleChatModel.
 
 Definition:
 
 - azureOpenAI - Azure OpenAI Translator
 - langchain_googleChatModel - Langchain JS, Google Chat Model and Gemini API
+- google_translate - Google translate Cloud API
 
 ## Running the app
 
