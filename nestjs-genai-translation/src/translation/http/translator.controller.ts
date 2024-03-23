@@ -48,6 +48,20 @@ export class TranslatorController {
           targetLanguageCode: 'en',
         },
       },
+      webDeveloper: {
+        value: {
+          text: 'Hola. yo soy una desarrollador web de Hong Kong',
+          srcLanguageCode: 'es',
+          targetLanguageCode: 'en',
+        },
+      },
+      fruit: {
+        value: {
+          text: '蘋果、柳橙、香蕉、西瓜。',
+          srcLanguageCode: 'zh-Hant',
+          targetLanguageCode: 'en',
+        },
+      },
     },
   })
   @ApiResponse({
@@ -56,6 +70,7 @@ export class TranslatorController {
       type: 'object',
       properties: {
         text: { type: 'string', description: 'translated text' },
+        aiService: { type: 'string', description: 'AI service' },
       },
     },
     status: 200,

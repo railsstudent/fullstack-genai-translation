@@ -1,12 +1,13 @@
 import { HttpModule } from '@nestjs/axios';
 import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { Integration } from '../core/types/integration.type';
 import { AzureTranslatorService } from './application/azure-translator.service';
 import { TRANSLATOR } from './application/constants/translator.constant';
+import { GoogleTranslateService } from './application/google-translate.service';
 import { LangchainTranslatorService } from './application/langchain-translator.service';
-import { GEMINI_CHAT_MODEL_PROVIDER } from './application/providers/gemini.provider';
+import { GOOGLE_TRANSLATE_PROVIDER } from './application/providers/google-translate.provider';
 import { GEMINI_LLM_CHAIN_PROVIDER } from './application/providers/translation-chain.provider';
 import { TranslatorController } from './http/translator.controller';
-import { Integration } from './types/integration.type';
 
 @Module({
   imports: [HttpModule],
@@ -17,6 +18,7 @@ export class TranslationModule {
     const serviceMap = new Map<Integration, any>();
     serviceMap.set('azureOpenAI', AzureTranslatorService);
     serviceMap.set('langchain_googleChatModel', LangchainTranslatorService);
+    serviceMap.set('google_translate', GoogleTranslateService);
     const translatorService = serviceMap.get(type) || AzureTranslatorService;
 
     const providers: Provider[] = [
@@ -27,7 +29,9 @@ export class TranslationModule {
     ];
 
     if (type === 'langchain_googleChatModel') {
-      providers.push(GEMINI_CHAT_MODEL_PROVIDER, GEMINI_LLM_CHAIN_PROVIDER);
+      providers.push(GEMINI_LLM_CHAIN_PROVIDER);
+    } else if (type === 'google_translate') {
+      providers.push(GOOGLE_TRANSLATE_PROVIDER);
     }
 
     return {

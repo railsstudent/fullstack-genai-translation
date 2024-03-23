@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@google-cloud/translate": "8.1.0",
-    "@langchain/azure-openai": "0.0.4",
     "@langchain/google-genai": "0.0.10",
     "@nestjs/axios": "3.0.2",
     "@nestjs/common": "10.3.4",

@@ -3,9 +3,10 @@ import { Injectable } from '@nestjs/common';
 import { firstValueFrom, map } from 'rxjs';
 import { v4 } from 'uuid';
 import { env } from '~configs/env.config';
+import { Integration } from '~core/types/integration.type';
+import { TranslationResult } from './interfaces/translation-result.interface';
 import { TranslateInput } from './interfaces/translator-input.interface';
 import { Translator } from './interfaces/translator.interface';
-import { TranslationResult } from './interfaces/translation-result.interface';
 
 type AzureTranslateResponse = {
   translations: [
@@ -40,7 +41,10 @@ export class AzureTranslatorService implements Translator {
       })
       .pipe(
         map(({ data }) => data?.[0]?.translations?.[0].text || 'No result'),
-        map((text) => ({ text })),
+        map((text) => ({
+          text,
+          aiService: <Integration>'azureOpenAI',
+        })),
       );
     return firstValueFrom(result$);
   }
