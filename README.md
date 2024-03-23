@@ -26,6 +26,8 @@
 
 This repo uses Azure OpenAI/Langchain + Gemini API to translate text from one language to another language
 
+Google Cloud credits are provided for this project. #GeminiSprint hashtag.
+
 ## Installation
 
 ```bash
