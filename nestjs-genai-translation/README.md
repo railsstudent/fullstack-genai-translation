@@ -38,12 +38,12 @@ $ npm install
 - Search Translator, and create a new Translator
 - Click "Keys and Endpoint", and then copy API Keys, Text Translation URL, and Location/Region
 
-## Get Gemini API Key
+## Create a new Gemini API Key
 
 - Navigate to https://aistudio.google.com/app/apikey
 - Click Create API key button to generate API key
 
-## Access Google Translate Cloud API in local environment
+## Access Google Translate Cloud API in your local environment
 
 - Google translate NPM: https://www.npmjs.com/package/@google-cloud/translate
 - Set up ADC - https://cloud.google.com/docs/authentication/provide-credentials-adc#local-dev
@@ -76,7 +76,7 @@ Definition:
 
 - azureOpenAI - Azure OpenAI Translator
 - langchain_googleChatModel - Langchain JS, Google Chat Model and Gemini API
-- google_translate - Google translate Cloud API
+- google_translate - Google translate Cloud API in the local environment
 
 ## Running the app
 

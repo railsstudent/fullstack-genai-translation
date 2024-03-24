@@ -36,17 +36,15 @@ $ cd ./nestjs-genai-translation
 $ npm install
 ```
 
-## Running the app
+## Running the app in Docker
+
+- Copy `.env.docker.example` to `.env`
+- Update the environment variables in `.env`
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ cd ./nestjs-genai-translation
-$ npm run start:dev
-
-# production mode
-$ cd ./nestjs-genai-translation
-$ npm run start:prod
+$ cp .env.docker.example .env
+$ docker-compose up -d
 ```
+
+- Open the browser and navigate to http://localhost:3000/api
+- Test the API in Swagger
