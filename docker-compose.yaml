@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./nestjs-genai-translation
+      dockerfile: Dockerfile
+    environment:
+      - PORT=${PORT}
+      - AZURE_OPENAI_TRANSLATOR_API_KEY=${AZURE_OPENAI_TRANSLATOR_API_KEY}
+      - AZURE_OPENAI_TRANSLATOR_URL=${AZURE_OPENAI_TRANSLATOR_URL}
+      - AZURE_OPENAI_TRANSLATOR_API_VERSION=${AZURE_OPENAI_TRANSLATOR_API_VERSION}
+      - AZURE_OPENAI_LOCATION=${AZURE_OPENAI_LOCATION}
+      - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY}
+      - GOOGLE_GEMINI_MODEL=${GOOGLE_GEMINI_MODEL}
+    ports:
+      - "${PORT}:${PORT}"
+    networks:
+      - ai
+    restart: always
+
+networks:
+  ai:
