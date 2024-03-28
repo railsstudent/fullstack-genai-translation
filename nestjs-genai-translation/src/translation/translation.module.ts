@@ -9,7 +9,7 @@ import { GoogleTranslateService } from './application/google-translate.service';
 import { LangchainTranslatorService } from './application/langchain-translator.service';
 import { GOOGLE_TRANSLATE_PROVIDER } from './application/providers/google-translate.provider';
 import { GEMINI_LLM_CHAIN_PROVIDER } from './application/providers/translation-chain.provider';
-import { TranslatorController } from './http/translator.controller';
+import { TranslatorController } from './presenters/http/translator.controller';
 
 @Module({
   imports: [HttpModule],

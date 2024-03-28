@@ -4,7 +4,7 @@ import { ZodValidationPipe } from '~core/pipes/zod-validation.pipe';
 import { TRANSLATOR } from '~translation/application/constants/translator.constant';
 import { TranslationResult } from '~translation/application/interfaces/translation-result.interface';
 import { Translator } from '~translation/application/interfaces/translator.interface';
-import { TranslateTextDto, translateTextSchema } from './dtos/translate-text.dto';
+import { TranslateTextDto, translateTextSchema } from '../dtos/translate-text.dto';
 
 @ApiTags('Translator')
 @Controller('translator')
