@@ -26,7 +26,7 @@ export class LangchainTranslatorService implements Translator {
     const translatedText = await this.llmChain.invoke({
       srcLanguageName,
       targetLanguageName,
-      text,
+      text: text,
     });
 
     return {

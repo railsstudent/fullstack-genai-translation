@@ -13,6 +13,7 @@ services:
       - AZURE_OPENAI_LOCATION=${AZURE_OPENAI_LOCATION}
       - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY}
       - GOOGLE_GEMINI_MODEL=${GOOGLE_GEMINI_MODEL}
+      - AI_SERVICE=${AI_SERVICE}
     ports:
       - "${PORT}:${PORT}"
     networks:
