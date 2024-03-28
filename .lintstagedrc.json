@@ -1,4 +1,0 @@
-{
-  "nestjs-genai-translation/*.ts": ["prettier --write", "eslint --fix"],
-  "*.{json,md}": "prettier --write"
-}

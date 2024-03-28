@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'ng-translation-app' title`, () => {
+  it(`should have the 'ng-genai-translation-app' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-translation-app');
+    expect(app.title).toEqual('ng-genai-translation-app');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ng-translation-app');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ng-genai-translation-app');
   });
 });
