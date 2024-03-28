@@ -11,8 +11,13 @@ import { GOOGLE_TRANSLATE_PROVIDER } from './application/providers/google-transl
 import { GEMINI_LLM_CHAIN_PROVIDER } from './application/providers/translation-chain.provider';
 import { TranslatorController } from './presenters/http/translator.controller';
 
-function getProviders(isProduction: boolean, serviceType: Integration) {
-  const translatorService = getService(isProduction, serviceType);
+function createProviders(serviceType: Integration) {
+  const serviceMap = new Map<Integration, any>();
+  serviceMap.set('azureOpenAI', AzureTranslatorService);
+  serviceMap.set('langchain_googleChatModel', LangchainTranslatorService);
+  serviceMap.set('google_translate', GoogleTranslateService);
+  const translatorService = serviceMap.get(serviceType);
+
   const providers: Provider[] = [
     {
       provide: TRANSLATOR,
@@ -28,16 +33,6 @@ function getProviders(isProduction: boolean, serviceType: Integration) {
   return providers;
 }
 
-function getService(isProduction: boolean, serviceType: Integration) {
-  const serviceMap = new Map<Integration, any>();
-  serviceMap.set('azureOpenAI', AzureTranslatorService);
-  serviceMap.set('langchain_googleChatModel', LangchainTranslatorService);
-  if (!isProduction) {
-    serviceMap.set('google_translate', GoogleTranslateService);
-  }
-  return serviceMap.get(serviceType);
-}
-
 @Module({
   imports: [HttpModule],
   controllers: [TranslatorController],
@@ -47,11 +42,10 @@ export class TranslationModule {
     const isProduction = env.APP_ENV === APP_ENV_NAMES.PRODUCTION;
     // google_translation works in local environment. Default to azureOpenAI in production
     const serviceType = isProduction && type === 'google_translate' ? 'azureOpenAI' : type;
-    const providers = getProviders(isProduction, serviceType);
 
     return {
       module: TranslationModule,
-      providers,
+      providers: createProviders(serviceType),
     };
   }
 }

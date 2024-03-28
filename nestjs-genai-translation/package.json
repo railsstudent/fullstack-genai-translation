@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "prepare": "husky"
   },
   "dependencies": {
     "@google-cloud/translate": "8.1.0",
@@ -39,6 +40,8 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "19.2.1",
+    "@commitlint/config-conventional": "19.1.0",
     "@nestjs/cli": "10.3.2",
     "@nestjs/schematics": "10.1.1",
     "@nestjs/testing": "10.3.7",
@@ -59,7 +62,9 @@
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.4.3"
+    "typescript": "5.4.3",
+    "husky": "9.0.11",
+    "lint-staged": "15.2.2"
   },
   "jest": {
     "moduleFileExtensions": [
