@@ -17,7 +17,7 @@ export const env = {
     API_KEY: process.env.GOOGLE_GEMINI_API_KEY || '',
     MODEL_NAME: process.env.GOOGLE_GEMINI_MODEL || '',
   },
-  AI_SERVICE: (process.env.AI_SERVICE || 'google_translate') as Integration,
+  AI_SERVICE: (process.env.AI_SERVICE || 'langchain_googleChatModel') as Integration,
   GOOGLE: {
     PROJECT_ID: process.env.GOOGLE_PROJECT_ID || '',
   },
