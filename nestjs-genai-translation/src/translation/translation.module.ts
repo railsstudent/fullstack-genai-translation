@@ -17,10 +17,7 @@ import { TranslatorController } from './presenters/http/translator.controller';
 })
 export class TranslationModule {
   static register(type: Integration = 'azureOpenAI'): DynamicModule {
-    console.log('type', type);
     const isProduction = env.APP_ENV === APP_ENV_NAMES.PRODUCTION;
-    console.log('isProduction', isProduction);
-
     // google_translation works in local environment. Default to azureOpenAI in production
     const serviceType = isProduction && type === 'google_translate' ? 'azureOpenAI' : type;
     const providers = TranslationModule.getProviders(isProduction, serviceType);
