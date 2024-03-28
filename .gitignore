@@ -37,4 +37,14 @@ lerna-debug.log*
 .env
 /nestjs-genai-translation/node_modules
 /nestjs-genai-translation/dist
+/ng-translation-app/node_modules
+/ng-translation-app/dist
+/ng-translation-app/.angular/cache
+/ng-translation-app/.sass-cache/
+/ng-translation-app/connect.lock
+/ng-translation-app/coverage
+/ng-translation-app/libpeerconnection.log
+/ng-translation-apptestem.log
+/ng-translation-app/typings
+
 **/**/dist
