@@ -9,6 +9,7 @@ services:
       - ~/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro
     environment:
       - PORT=${PORT}
+      - APP_ENV=${APP_ENV}
       - AZURE_OPENAI_TRANSLATOR_API_KEY=${AZURE_OPENAI_TRANSLATOR_API_KEY}
       - AZURE_OPENAI_TRANSLATOR_URL=${AZURE_OPENAI_TRANSLATOR_URL}
       - AZURE_OPENAI_TRANSLATOR_API_VERSION=${AZURE_OPENAI_TRANSLATOR_API_VERSION}
@@ -16,6 +17,7 @@ services:
       - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY}
       - GOOGLE_GEMINI_MODEL=${GOOGLE_GEMINI_MODEL}
       - AI_SERVICE=${AI_SERVICE}
+      - GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}
       - GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json
     ports:
       - "${PORT}:${PORT}"

@@ -1,5 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
-import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Logger, Module, Provider } from '@nestjs/common';
 import { env } from '~configs/env.config';
 import { APP_ENV_NAMES } from '~core/enums/app_env_names.enum';
 import { Integration } from '~core/types/integration.type';
@@ -39,9 +39,13 @@ function createProviders(serviceType: Integration) {
 })
 export class TranslationModule {
   static register(type: Integration = 'azureOpenAI'): DynamicModule {
+    const logger = new Logger(TranslationModule.name);
     const isProduction = env.APP_ENV === APP_ENV_NAMES.PRODUCTION;
     // google_translation works in local environment. Default to azureOpenAI in production
     const serviceType = isProduction && type === 'google_translate' ? 'azureOpenAI' : type;
+
+    logger.log(`isProduction? ${isProduction}`);
+    logger.log(`serviceType? ${serviceType}`);
 
     return {
       module: TranslationModule,
