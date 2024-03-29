@@ -1,6 +1,6 @@
 {
   "name": "ng-genai-translation-app",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "prepare": "husky"
+    "commitlint": "commitlint --edit $1"
   },
   "private": true,
   "dependencies": {
@@ -38,15 +38,13 @@
     "@types/jasmine": "5.1.4",
     "@typescript-eslint/eslint-plugin": "7.4.0",
     "@typescript-eslint/parser": "7.4.0",
-    "eslint": "^8.57.0",
-    "husky": "9.0.11",
+    "eslint": "8.57.0",
     "jasmine-core": "5.1.2",
     "karma": "6.4.3",
     "karma-chrome-launcher": "3.2.0",
     "karma-coverage": "2.2.1",
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
-    "lint-staged": "15.2.2",
     "typescript": "5.4.3"
   }
 }

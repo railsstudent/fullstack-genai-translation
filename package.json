@@ -4,5 +4,11 @@
   "main": "index.js",
   "author": "",
   "license": "MIT",
-  "description": "Full stack generative AI app using NestJS, Angular, Azure OpenAI, Langchain.js, Gemini, and Google Translate Cloud API"
+  "description": "Full stack generative AI app using NestJS, Angular, Azure OpenAI, Langchain.js, Gemini, and Google Translate Cloud API",
+  "devDependencies": {
+    "husky": "9.0.11"
+  },
+  "scripts": {
+    "prepare": "husky"
+  }
 }

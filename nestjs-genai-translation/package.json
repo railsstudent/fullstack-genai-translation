@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "author": "",
-  "private": true,
   "license": "MIT",
   "scripts": {
     "build": "nest build",
@@ -18,8 +17,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "lint-staged": "lint-staged",
-    "prepare": "husky"
+    "pre-commit": "lint-staged",
+    "commitlint": "commitlint --edit $1"
   },
   "dependencies": {
     "@google-cloud/translate": "8.1.0",
@@ -34,7 +33,7 @@
     "dotenv": "16.4.5",
     "helmet": "7.1.0",
     "langchain": "0.1.30",
-    "reflect-metadata": "0.2.1",
+    "reflect-metadata": "0.2.2",
     "rxjs": "7.8.1",
     "uuid": "9.0.1",
     "zod": "3.22.4"
@@ -63,7 +62,6 @@
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
     "typescript": "5.4.3",
-    "husky": "9.0.11",
     "lint-staged": "15.2.2"
   },
   "jest": {
