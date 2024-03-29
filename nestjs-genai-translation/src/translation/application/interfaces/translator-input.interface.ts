@@ -1,7 +1,7 @@
-import { LanguageCodeType } from '../enums/languages.enum';
+import { LanguageCodesType } from '../validations/language_codes.validation';
 
 export interface TranslateInput {
   text: string;
-  srcLanguageCode: LanguageCodeType;
-  targetLanguageCode: LanguageCodeType;
+  srcLanguageCode: LanguageCodesType;
+  targetLanguageCode: LanguageCodesType;
 }

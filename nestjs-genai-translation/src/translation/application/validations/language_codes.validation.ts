@@ -13,4 +13,4 @@ export const ZOD_LANGUAGE_CODES = z.nativeEnum(LANGUAGE_CODES, {
   required_error: 'Language code is required',
   invalid_type_error: 'Language code is invalid',
 });
-export type LanguageCodeType = z.infer<typeof ZOD_LANGUAGE_CODES>;
+export type LanguageCodesType = z.infer<typeof ZOD_LANGUAGE_CODES>;

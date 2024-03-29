@@ -1,17 +1,17 @@
 import { v2 } from '@google-cloud/translate';
 import { Inject, Injectable } from '@nestjs/common';
 import { GOOGLE_TRANSLATE } from './constants/translator.constant';
-import { LanguageCodeType } from './enums/languages.enum';
 import { TranslationResult } from './interfaces/translation-result.interface';
 import { TranslateInput } from './interfaces/translator-input.interface';
 import { Translator } from './interfaces/translator.interface';
+import { LanguageCodesType } from './validations/language_codes.validation';
 
 @Injectable()
 export class GoogleTranslateService implements Translator {
   constructor(@Inject(GOOGLE_TRANSLATE) private translateApi: v2.Translate) {}
   async translate({ text, srcLanguageCode, targetLanguageCode }: TranslateInput): Promise<TranslationResult> {
     // supported languages: https://cloud.google.com/translate/docs/languages
-    const toLanguage = this.convertToLanguage(targetLanguageCode);
+    const toLanguage = this.convertLanguageCode(targetLanguageCode);
     const [translatedText] = await this.translateApi.translate(text, {
       from: srcLanguageCode,
       to: toLanguage,
@@ -22,7 +22,7 @@ export class GoogleTranslateService implements Translator {
     };
   }
 
-  private convertToLanguage(targetLanguageCode: LanguageCodeType) {
+  private convertLanguageCode(targetLanguageCode: LanguageCodesType) {
     let toLanguage = `${targetLanguageCode}`;
     if (targetLanguageCode === 'zh-Hans') {
       toLanguage = 'zh-CN';

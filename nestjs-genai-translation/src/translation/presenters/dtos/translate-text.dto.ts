@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ZOD_LANGUAGE_CODES } from '~translation/application/enums/languages.enum';
+import { ZOD_LANGUAGE_CODES } from '~translation/application/validations/language_codes.validation';
 
 export const translateTextSchema = z
   .object({

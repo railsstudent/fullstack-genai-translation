@@ -2,14 +2,14 @@ import { Runnable } from '@langchain/core/runnables';
 import { Inject, Injectable } from '@nestjs/common';
 import { GEMINI_CHAT_MODEL_LLM_CHAIN } from './constants/translator.constant';
 import { LANGUAGE_NAMES } from './enums/language_names.enum';
-import { LanguageCodeType } from './enums/languages.enum';
 import { TranslationResult } from './interfaces/translation-result.interface';
 import { TranslateInput } from './interfaces/translator-input.interface';
 import { Translator } from './interfaces/translator.interface';
+import { LanguageCodesType } from './validations/language_codes.validation';
 
 @Injectable()
 export class LangchainTranslatorService implements Translator {
-  readonly languageMapper = new Map<LanguageCodeType, LANGUAGE_NAMES>();
+  readonly languageMapper = new Map<LanguageCodesType, LANGUAGE_NAMES>();
 
   constructor(@Inject(GEMINI_CHAT_MODEL_LLM_CHAIN) private readonly llmChain: Runnable<any, string>) {
     this.languageMapper.set('en', LANGUAGE_NAMES.ENGLISH);
