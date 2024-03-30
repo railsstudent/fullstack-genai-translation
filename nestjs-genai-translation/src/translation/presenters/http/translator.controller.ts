@@ -12,7 +12,7 @@ export class TranslatorController {
   constructor(@Inject(TRANSLATOR) private translatorService: Translator) {}
 
   @ApiBody({
-    description: 'An intance of TranslatTextDto',
+    description: 'An intance of TranslateTextDto',
     required: true,
     schema: {
       type: 'object',

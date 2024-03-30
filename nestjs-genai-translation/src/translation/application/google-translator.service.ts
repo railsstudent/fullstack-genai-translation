@@ -9,6 +9,7 @@ import { LanguageCodesType } from './validations/language_codes.validation';
 @Injectable()
 export class GoogleTranslatorService implements Translator {
   constructor(@Inject(GOOGLE_TRANSLATE) private translateApi: v2.Translate) {}
+
   async translate({ text, srcLanguageCode: from, targetLanguageCode }: TranslateInput): Promise<TranslationResult> {
     // supported languages: https://cloud.google.com/translate/docs/languages
     const to = this.convertLanguageCode(targetLanguageCode);
@@ -16,19 +17,21 @@ export class GoogleTranslatorService implements Translator {
       from,
       to,
     });
+
     return {
       text: translatedText,
       aiService: 'google_translate',
     };
   }
 
-  private convertLanguageCode(targetLanguageCode: LanguageCodesType) {
-    let toLanguage = `${targetLanguageCode}`;
-    if (targetLanguageCode === 'zh-Hans') {
+  private convertLanguageCode(languageCode: LanguageCodesType) {
+    let toLanguage = `${languageCode}`;
+    if (languageCode === 'zh-Hans') {
       toLanguage = 'zh-CN';
-    } else if (targetLanguageCode === 'zh-Hant') {
+    } else if (languageCode === 'zh-Hant') {
       toLanguage = 'zh-TW';
     }
+
     return toLanguage;
   }
 }
