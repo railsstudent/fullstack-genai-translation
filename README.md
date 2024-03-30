@@ -24,7 +24,7 @@
 
 ## Description
 
-This repo uses Azure OpenAI/Langchain + Gemini API to translate text from one language to another language
+This repo uses Azure OpenAI, Langchain + Gemini 1.0 Pro, and Google Cloud Translation API to translate text from one language to another language
 
 Google Cloud credits are provided for this project. #GeminiSprint hashtag.
 

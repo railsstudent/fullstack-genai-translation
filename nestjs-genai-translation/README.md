@@ -43,7 +43,7 @@ $ npm install
 - Navigate to https://aistudio.google.com/app/apikey
 - Click Create API key button to generate API key
 
-## Access Google Translate Cloud API in your local environment
+## Access Google Cloud Translation API in your local environment
 
 - Google translate NPM: https://www.npmjs.com/package/@google-cloud/translate
 - Set up ADC - https://cloud.google.com/docs/authentication/provide-credentials-adc#local-dev
