@@ -5,7 +5,7 @@ import { APP_ENV_NAMES } from '~core/enums/app_env_names.enum';
 import { Integration } from '~core/types/integration.type';
 import { AzureTranslatorService } from './application/azure-translator.service';
 import { TRANSLATOR } from './application/constants/translator.constant';
-import { GoogleTranslateService } from './application/google-translate.service';
+import { GoogleTranslatorService } from './application/google-translator.service';
 import { LangchainTranslatorService } from './application/langchain-translator.service';
 import { GOOGLE_TRANSLATE_PROVIDER } from './application/providers/google-translate.provider';
 import { GEMINI_LLM_CHAIN_PROVIDER } from './application/providers/translation-chain.provider';
@@ -15,7 +15,7 @@ function createProviders(serviceType: Integration) {
   const serviceMap = new Map<Integration, any>();
   serviceMap.set('azureOpenAI', AzureTranslatorService);
   serviceMap.set('langchain_googleChatModel', LangchainTranslatorService);
-  serviceMap.set('google_translate', GoogleTranslateService);
+  serviceMap.set('google_translate', GoogleTranslatorService);
   const translatorService = serviceMap.get(serviceType);
 
   const providers: Provider[] = [
