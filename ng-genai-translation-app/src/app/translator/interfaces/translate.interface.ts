@@ -11,4 +11,5 @@ export interface TranslationModel {
     to: string;
     isValid: boolean;
     isLoading: boolean;
+    buttonText: string;
 }

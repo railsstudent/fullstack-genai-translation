@@ -6,17 +6,19 @@ import { TranslationModel } from '../interfaces/translate.interface';
 import { TranslationResult } from '../interfaces/translation-result.interface';
 import { LanguageSelectorsComponent } from '../language-selectors/language-selectors.component';
 import { TranslatorService } from '../services/translator.service';
+import { TranslationAssistantComponent } from '../translation-assistant/translation-assistant.component';
 import { TranslationListComponent } from '../translation-list/translation-list.component';
 
 @Component({
   selector: 'app-translator',
   standalone: true,
-  imports: [FormsModule, LanguageSelectorsComponent, TranslationListComponent],
+  imports: [FormsModule, LanguageSelectorsComponent, TranslationListComponent, TranslationAssistantComponent],
   template: `
     <div class="container">
       <h2>Ng Text Translation Demo</h2>
       <div class="translator">
         <app-language-selectors [languages]="languages" [(from)]="fromLanguage" [(to)]="toLanguage" />
+        <app-translation-assistant />
         <textarea rows="10" [(ngModel)]="text"></textarea>
         <button (click)="translate()" [disabled]="vm.isLoading">{{ vm.buttonText }}</button>
       </div>
@@ -54,7 +56,7 @@ export class TranslatorComponent {
         scan((acc, translation) => ([translation, ...acc]), [] as TranslationResult[]),
         tap(() => this.isLoading.set(false)),
       ), 
-    {initialValue: [] as TranslationResult[] }
+    { initialValue: [] as TranslationResult[] }
   );
 
   viewModel = computed<TranslationModel>(() => {
