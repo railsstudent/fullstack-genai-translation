@@ -1,0 +1,29 @@
+{
+    "url": "http://localhost:3000",
+    "languages": [
+        {
+          "code": "en",
+          "name": "English"
+        },
+        {
+          "code": "es",
+          "name": "Spanish"
+        },
+        {
+          "code": "ja",
+          "name": "Japanese"
+        },
+        {
+          "code": "vi",
+          "name": "Vietnamese"
+        },
+        {
+          "code": "zh-Hant",
+          "name": "Tranditional Chinese"
+        },
+        {
+          "code": "zh-Hans",
+          "name": "Simplified Chinese"
+        }
+      ]
+}

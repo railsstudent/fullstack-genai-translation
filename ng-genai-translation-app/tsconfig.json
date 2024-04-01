@@ -21,7 +21,11 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "paths": {
+      "~*": ["./src/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,43 +1,37 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { filter, map, retry, switchMap } from 'rxjs';
+import config from '~assets/config.json';
+import { Translate } from '../interfaces/translate.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslatorService {
-  httpService = inject(HttpClient);
+  private readonly httpService = inject(HttpClient);
+
+  private translate = signal<Translate>({
+    text: '',
+    from: '',
+    to: '',
+    isValid: false,
+  });
+
+  translation$  = toObservable(this.translate)
+    .pipe(
+      filter(({ isValid }) => isValid),
+      map(({ text, from, to }) => ({ text, srcLanguageCode: from, targetLanguageCode: to })),
+      switchMap((data) => this.httpService.post<{ text: string }>(`${config.url}/translator`, data)),
+      retry(3),
+      map((data) => data.text)
+    );
 
   getSupportedLanguages() {
-    return [
-      {
-        code: 'en',
-        name: 'English'
-      },
-      {
-        code: 'es',
-        name: 'Spanish'
-      },
-      {
-        code: 'ja',
-        name: 'Japanese'
-      },
-      {
-        code: 'vi',
-        name: 'Vietnamese'
-      },
-      {
-        code: 'zh-Hant',
-        name: 'Tranditional Chinese'
-      },
-      {
-        code: 'zh-Hans',
-        name: 'Simplified Chinese'
-      },
-    ];
+    return config.languages;
   }
 
-  translate(text: string) {
-    console.log(text)
+  translateText(data: Translate) {
+    this.translate.set(data);
   }
-
 }

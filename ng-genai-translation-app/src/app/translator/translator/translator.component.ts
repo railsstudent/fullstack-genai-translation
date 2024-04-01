@@ -1,6 +1,8 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, model } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { Translate } from '../interfaces/translate.interface';
 import { TranslatorService } from '../services/translator.service';
 
 @Component({
@@ -32,9 +34,16 @@ import { TranslatorService } from '../services/translator.service';
         <textarea rows="10" [(ngModel)]="text"></textarea>
         <button (click)="translate()">Translate me!</button>
         <pre>
-          {{ vm | json }}
+          {{ viewModel() | json }}
         </pre>
       </div>
+        <div>
+          <p>Translated Result: </p>
+          @if (translatedText(); as translatedText) {
+            <p>{{ text() }}</p>
+            <p>{{ translatedText }}</p>
+          }
+        </div>
     </div>
   `,
   styles: `
@@ -67,26 +76,18 @@ export class TranslatorComponent {
 
   translatorService = inject(TranslatorService);
   languages = this.translatorService.getSupportedLanguages();
+  translatedText = toSignal(this.translatorService.translation$);
 
-  viewModel = computed(() => {
+  viewModel = computed<Translate>(() => {
     return {
       text: this.text(),
       from: this.fromLanguage(),
       to: this.toLanguage(),
+      isValid: !!this.text() && !!this.fromLanguage() && !!this.toLanguage(), 
     }
   });
 
-  get vm() {
-    return this.viewModel();
-  }
-
-  // btnTranslator = viewChild.required('btn', { read: HTMLButtonElement });
-
-  // constructor() {
-  //   this.btnTranslator().c
-  // }
-
   translate() {
-
+    this.translatorService.translateText(this.viewModel());
   }
 }
