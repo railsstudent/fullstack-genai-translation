@@ -2,45 +2,29 @@ import { ChangeDetectionStrategy, Component, computed, inject, model } from '@an
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Translate } from '../interfaces/translate.interface';
+import { LanguageSelectorsComponent } from '../language-selectors/language-selectors.component';
 import { LineBreakPipe } from '../pipes/line-break.pipe';
 import { TranslatorService } from '../services/translator.service';
 
 @Component({
   selector: 'app-translator',
   standalone: true,
-  imports: [FormsModule, LineBreakPipe],
+  imports: [FormsModule, LineBreakPipe, LanguageSelectorsComponent],
   template: `
     <div class="container">
       <h2>Ng Text Translation Demo</h2>
       <div class="translator">
-        <div class="language-selectors">
-          <label for="from">
-            <span>From: </span>
-            <select [(ngModel)]="fromLanguage">
-              @for (language of languages; track language.code) {
-                <option value="{{ language.code }}">{{ language.name }}</option>
-              }
-            </select>
-          </label>
-          <label for="to">
-            <span>To: </span>
-            <select [(ngModel)]="toLanguage">
-              @for (language of languages; track language.code) {
-                <option value="{{ language.code }}">{{ language.name }}</option>
-              }
-            </select>
-          </label>
-        </div>
+        <app-language-selectors [languages]="languages" [(from)]="fromLanguage" [(to)]="toLanguage" />
         <textarea rows="10" [(ngModel)]="text"></textarea>
         <button (click)="translate()">Translate me!</button>
       </div>
-        <div>
-          <p>Translated Result: </p>
-          @if (translatedText(); as translatedText) {
-            <p [innerHTML]="text() | lineBreak"></p>
-            <p [innerHTML]="translatedText | lineBreak"></p>
-          }
-        </div>
+      <div>
+        <p>Translated Result: </p>
+        @if (translatedText(); as translatedText) {
+          <p [innerHTML]="text() | lineBreak"></p>
+          <p [innerHTML]="translatedText | lineBreak"></p>
+        }
+      </div>
     </div>
   `,
   styles: `
@@ -55,13 +39,6 @@ import { TranslatorService } from '../services/translator.service';
     textarea {
       width: 50%;
       margin-right: 0.25rem;
-    }
-
-    .language-selectors {
-      width: 50%;
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 0.75rem;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
