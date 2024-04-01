@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, model, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { scan } from 'rxjs';
-import { Translate } from '../interfaces/translate.interface';
+import { scan, tap } from 'rxjs';
+import { TranslationModel } from '../interfaces/translate.interface';
 import { TranslationResult } from '../interfaces/translation-result.interface';
 import { LanguageSelectorsComponent } from '../language-selectors/language-selectors.component';
 import { TranslatorService } from '../services/translator.service';
@@ -18,7 +18,7 @@ import { TranslationListComponent } from '../translation-list/translation-list.c
       <div class="translator">
         <app-language-selectors [languages]="languages" [(from)]="fromLanguage" [(to)]="toLanguage" />
         <textarea rows="10" [(ngModel)]="text"></textarea>
-        <button (click)="translate()">Translate me!</button>
+        <button (click)="translate()" [disabled]="vm.isLoading">{{ vm.buttonText }}</button>
       </div>
       <app-translation-list [translationList]="translationList()" />
     </div>
@@ -44,25 +44,36 @@ export class TranslatorComponent {
   text = model('');
   fromLanguage = model('en');
   toLanguage = model('en');
+  isLoading = signal(false);
 
   translatorService = inject(TranslatorService);
   languages = this.translatorService.getSupportedLanguages();
   translationList = toSignal( 
     this.translatorService.translation$
-      .pipe(scan((acc, translation) => ([translation, ...acc]), [] as TranslationResult[])), 
+      .pipe(
+        scan((acc, translation) => ([translation, ...acc]), [] as TranslationResult[]),
+        tap(() => this.isLoading.set(false)),
+      ), 
     {initialValue: [] as TranslationResult[] }
   );
 
-  viewModel = computed<Translate>(() => {
+  viewModel = computed<TranslationModel>(() => {
     return {
       text: this.text(),
       from: this.fromLanguage(),
       to: this.toLanguage(),
       isValid: !!this.text() && !!this.fromLanguage() && !!this.toLanguage(), 
+      isLoading: this.isLoading(),
+      buttonText: this.isLoading() ? 'Translating...' : 'Translate me!',
     }
   });
 
+  get vm() {
+    return this.viewModel();
+  }
+
   translate() {
-    this.translatorService.translateText(this.viewModel());
+    this.isLoading.set(true);
+    this.translatorService.translateText(this.vm);
   }
 }
