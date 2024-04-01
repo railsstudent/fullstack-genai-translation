@@ -1,15 +1,17 @@
 import { ChangeDetectionStrategy, Component, computed, inject, model } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { scan } from 'rxjs';
 import { Translate } from '../interfaces/translate.interface';
+import { TranslationResult } from '../interfaces/translation-result.interface';
 import { LanguageSelectorsComponent } from '../language-selectors/language-selectors.component';
-import { LineBreakPipe } from '../pipes/line-break.pipe';
 import { TranslatorService } from '../services/translator.service';
+import { TranslationListComponent } from '../translation-list/translation-list.component';
 
 @Component({
   selector: 'app-translator',
   standalone: true,
-  imports: [FormsModule, LineBreakPipe, LanguageSelectorsComponent],
+  imports: [FormsModule, LanguageSelectorsComponent, TranslationListComponent],
   template: `
     <div class="container">
       <h2>Ng Text Translation Demo</h2>
@@ -18,13 +20,7 @@ import { TranslatorService } from '../services/translator.service';
         <textarea rows="10" [(ngModel)]="text"></textarea>
         <button (click)="translate()">Translate me!</button>
       </div>
-      <div>
-        <p>Translated Result: </p>
-        @if (translatedText(); as translatedText) {
-          <p [innerHTML]="text() | lineBreak"></p>
-          <p [innerHTML]="translatedText | lineBreak"></p>
-        }
-      </div>
+      <app-translation-list [translationList]="translationList()" />
     </div>
   `,
   styles: `
@@ -39,6 +35,7 @@ import { TranslatorService } from '../services/translator.service';
     textarea {
       width: 50%;
       margin-right: 0.25rem;
+      padding: 0.5rem;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -50,7 +47,11 @@ export class TranslatorComponent {
 
   translatorService = inject(TranslatorService);
   languages = this.translatorService.getSupportedLanguages();
-  translatedText = toSignal(this.translatorService.translation$);
+  translationList = toSignal( 
+    this.translatorService.translation$
+      .pipe(scan((acc, translation) => ([translation, ...acc]), [] as TranslationResult[])), 
+    {initialValue: [] as TranslationResult[] }
+  );
 
   viewModel = computed<Translate>(() => {
     return {
