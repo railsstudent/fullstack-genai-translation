@@ -1,14 +1,14 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, model } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Translate } from '../interfaces/translate.interface';
+import { LineBreakPipe } from '../pipes/line-break.pipe';
 import { TranslatorService } from '../services/translator.service';
 
 @Component({
   selector: 'app-translator',
   standalone: true,
-  imports: [JsonPipe, FormsModule],
+  imports: [FormsModule, LineBreakPipe],
   template: `
     <div class="container">
       <h2>Ng Text Translation Demo</h2>
@@ -33,15 +33,12 @@ import { TranslatorService } from '../services/translator.service';
         </div>
         <textarea rows="10" [(ngModel)]="text"></textarea>
         <button (click)="translate()">Translate me!</button>
-        <pre>
-          {{ viewModel() | json }}
-        </pre>
       </div>
         <div>
           <p>Translated Result: </p>
           @if (translatedText(); as translatedText) {
-            <p>{{ text() }}</p>
-            <p>{{ translatedText }}</p>
+            <p [innerHTML]="text() | lineBreak"></p>
+            <p [innerHTML]="translatedText | lineBreak"></p>
           }
         </div>
     </div>
