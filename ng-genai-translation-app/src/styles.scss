@@ -10,3 +10,13 @@ body {
     min-height: 100%;
 }
 
+h2 {
+    padding: 0.75rem;
+    background: yellow;
+    color: black;
+}
+
+button, select {
+    padding: 0.5rem;
+    border-radius: 4px;
+}
