@@ -1,14 +1,26 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { assertInInjectionContext, ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslatorComponent } from './translator/translator/translator.component';
+import { Title } from '@angular/platform-browser';
+
+function updateDocTitle(title: string) {
+  assertInInjectionContext(updateDocTitle);
+  const titleInjector = inject(Title);
+  titleInjector.setTitle(title);
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  imports: [CommonModule, TranslatorComponent],
+  template: `
+    <app-translator />
+  `,
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'ng-genai-translation-app';
+  constructor() {
+    updateDocTitle('Ng Text Translator Demo');
+  }
 }
