@@ -1,3 +1,5 @@
+import { TranslationResult } from './translation-result.interface';
+
 export interface Translate {
     text: string;
     from: string;
@@ -6,10 +8,14 @@ export interface Translate {
 }
 
 export interface TranslationModel {
-    text: string;
     from: string;
     to: string;
-    isValid: boolean;
+    isLoading: boolean;
+    translationList: TranslationResult[];
+}
+
+export interface TranslationBoxModel {
+    text: string;
     isLoading: boolean;
     buttonText: string;
 }

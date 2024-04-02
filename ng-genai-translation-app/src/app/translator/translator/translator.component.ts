@@ -1,28 +1,25 @@
-import { ChangeDetectionStrategy, Component, computed, inject, model, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { outputToObservable, toSignal } from '@angular/core/rxjs-interop';
 import { scan, tap } from 'rxjs';
 import { TranslationModel } from '../interfaces/translate.interface';
 import { TranslationResult } from '../interfaces/translation-result.interface';
 import { LanguageSelectorsComponent } from '../language-selectors/language-selectors.component';
 import { TranslatorService } from '../services/translator.service';
-import { TranslationAssistantComponent } from '../translation-assistant/translation-assistant.component';
+import { TranslationBoxComponent } from '../translation-box/translation-box.component';
 import { TranslationListComponent } from '../translation-list/translation-list.component';
 
 @Component({
   selector: 'app-translator',
   standalone: true,
-  imports: [FormsModule, LanguageSelectorsComponent, TranslationListComponent, TranslationAssistantComponent],
+  imports: [LanguageSelectorsComponent, TranslationListComponent, TranslationBoxComponent],
   template: `
     <div class="container">
       <h2>Ng Text Translation Demo</h2>
       <div class="translator">
         <app-language-selectors [languages]="languages" [(from)]="fromLanguage" [(to)]="toLanguage" />
-        <app-translation-assistant />
-        <!-- <textarea rows="10" [(ngModel)]="text"></textarea>
-        <button (click)="translate()" [disabled]="vm.isLoading">{{ vm.buttonText }}</button> -->
+        <app-translation-box #box [isLoading]="vm.isLoading" />
       </div>
-      <app-translation-list [translationList]="translationList()" />
+      <app-translation-list [translationList]="vm.translationList" />
     </div>
   `,
   styles: `
@@ -33,27 +30,21 @@ import { TranslationListComponent } from '../translation-list/translation-list.c
     div.translator {
       margin-top: 1rem;
     }
-
-    // textarea {
-    //   width: 50%;
-    //   margin-right: 0.25rem;
-    //   padding: 0.5rem;
-    // }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TranslatorComponent {
-  text = model('');
-  fromLanguage = model('en');
-  toLanguage = model('en');
+  fromLanguage = signal('en');
+  toLanguage = signal('en');
   isLoading = signal(false);
+  box = viewChild.required(TranslationBoxComponent);
 
   translatorService = inject(TranslatorService);
   languages = this.translatorService.getSupportedLanguages();
   translationList = toSignal( 
     this.translatorService.translation$
       .pipe(
-        scan((acc, translation) => ([translation, ...acc]), [] as TranslationResult[]),
+        scan((acc, translation) => ([...acc, translation]), [] as TranslationResult[]),
         tap(() => this.isLoading.set(false)),
       ), 
     { initialValue: [] as TranslationResult[] }
@@ -61,12 +52,10 @@ export class TranslatorComponent {
 
   viewModel = computed<TranslationModel>(() => {
     return {
-      text: this.text(),
       from: this.fromLanguage(),
       to: this.toLanguage(),
-      isValid: !!this.text() && !!this.fromLanguage() && !!this.toLanguage(), 
       isLoading: this.isLoading(),
-      buttonText: this.isLoading() ? 'Translating...' : 'Translate me!',
+      translationList: this.translationList(),
     }
   });
 
@@ -74,8 +63,20 @@ export class TranslatorComponent {
     return this.viewModel();
   }
 
-  translate() {
-    this.isLoading.set(true);
-    this.translatorService.translateText(this.vm);
+  constructor() {
+    effect((cleanUp) => {
+      const sub = outputToObservable(this.box().translate)
+        .subscribe((text) => {
+          this.isLoading.set(true);
+          this.translatorService.translateText({
+            text,
+            from: this.vm.from,
+            to: this.vm.to,
+            isValid: !!text && !!this.vm.from && !!this.vm.to
+          });
+        });
+
+      cleanUp(() => sub.unsubscribe());
+    });
   }
 }

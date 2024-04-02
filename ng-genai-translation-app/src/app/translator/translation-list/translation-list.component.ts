@@ -7,8 +7,9 @@ import { LineBreakPipe } from '../pipes/line-break.pipe';
   standalone: true,
   imports: [LineBreakPipe],
   template: `
-    <div>
-      <h3>Translation Results: </h3>
+    <h3>Translation Results: </h3>
+    @if (translationList().length > 0) {
+    <div class="list">
       @for (item of translationList(); track item) {
         <div>
           <span>Source: </span>
@@ -19,10 +20,11 @@ import { LineBreakPipe } from '../pipes/line-break.pipe';
           <p [innerHTML]="item.result | lineBreak"></p>
         </div>
         <hr />
-      } @empty {
-        <p>No translation</p>
       }
     </div>
+    } @else {
+      <p>No translation</p>
+    }
   `,
   styles: `
     h3 {
@@ -31,8 +33,25 @@ import { LineBreakPipe } from '../pipes/line-break.pipe';
       text-decoration: underline;
     }
 
-    p {
+    p, span {
       display: inline-block;
+    }
+
+    div.list {
+      border: 1px solid black;
+      border-radius: 4px;
+      padding: 1rem;
+      width: 50%;
+      height: 300px;
+      overflow-y: scroll;
+    }
+
+    div.list > div {
+      display: flex;
+    }
+
+    span {
+      width: 20%;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
