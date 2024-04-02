@@ -24,6 +24,17 @@ services:
     networks:
       - ai
     restart: always
+  web:
+    build:
+      context: ./ng-genai-translation-app
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "${WEB_PORT}:${WEB_PORT}"
+    networks:
+      - ai
+    restart: always
 
 networks:
   ai:
