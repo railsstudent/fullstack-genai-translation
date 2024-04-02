@@ -19,8 +19,8 @@ import { TranslationListComponent } from '../translation-list/translation-list.c
       <div class="translator">
         <app-language-selectors [languages]="languages" [(from)]="fromLanguage" [(to)]="toLanguage" />
         <app-translation-assistant />
-        <textarea rows="10" [(ngModel)]="text"></textarea>
-        <button (click)="translate()" [disabled]="vm.isLoading">{{ vm.buttonText }}</button>
+        <!-- <textarea rows="10" [(ngModel)]="text"></textarea>
+        <button (click)="translate()" [disabled]="vm.isLoading">{{ vm.buttonText }}</button> -->
       </div>
       <app-translation-list [translationList]="translationList()" />
     </div>
@@ -34,11 +34,11 @@ import { TranslationListComponent } from '../translation-list/translation-list.c
       margin-top: 1rem;
     }
 
-    textarea {
-      width: 50%;
-      margin-right: 0.25rem;
-      padding: 0.5rem;
-    }
+    // textarea {
+    //   width: 50%;
+    //   margin-right: 0.25rem;
+    //   padding: 0.5rem;
+    // }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

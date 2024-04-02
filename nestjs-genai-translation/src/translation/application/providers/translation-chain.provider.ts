@@ -37,7 +37,9 @@ export const GEMINI_LLM_CHAIN_PROVIDER: Provider = {
   provide: GEMINI_CHAT_MODEL_LLM_CHAIN,
   useFactory: () => {
     const systemMessageTemplate = SystemMessagePromptTemplate.fromTemplate(
-      'You are a helpful language translator that translates {srcLanguageName} to {targetLanguageName}',
+      `You are a helpful language translator that translates {srcLanguageName} to {targetLanguageName}.
+      Please only translate the text and do not mention that you are a translator. 
+      `,
     );
     const humanMessageTemplate = HumanMessagePromptTemplate.fromTemplate('{text}');
     const chatPrompt = ChatPromptTemplate.fromMessages([systemMessageTemplate, humanMessageTemplate]);
