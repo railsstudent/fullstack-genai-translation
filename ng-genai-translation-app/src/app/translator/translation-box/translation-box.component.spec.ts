@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TranslationAssistantComponent } from './translation-assistant.component';
+import { TranslationBoxComponent } from './translation-box.component';
 
-describe('TranslationAssistantComponent', () => {
-  let component: TranslationAssistantComponent;
-  let fixture: ComponentFixture<TranslationAssistantComponent>;
+describe('TranslationBoxComponent', () => {
+  let component: TranslationBoxComponent;
+  let fixture: ComponentFixture<TranslationBoxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslationAssistantComponent]
+      imports: [TranslationBoxComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TranslationAssistantComponent);
+    fixture = TestBed.createComponent(TranslationBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,7 +8,7 @@ import { TranslationBoxModel } from '../interfaces/translate.interface';
   imports: [FormsModule],
   template: `
     <textarea rows="10" [(ngModel)]="text"></textarea>
-    <button (click)="handleClicked()" [disabled]="vm.isLoading">{{ vm.buttonText }}</button>
+    <button (click)="translate.emit(vm.text)" [disabled]="vm.isLoading">{{ vm.buttonText }}</button>
   `,
   styles: `
     textarea {
@@ -35,9 +35,5 @@ export class TranslationBoxComponent {
 
   get vm() {
     return this.viewModel();
-  }
-
-  handleClicked() {
-    this.translate.emit(this.text());
   }
 }
