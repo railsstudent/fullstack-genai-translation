@@ -29,10 +29,12 @@ This repo uses Azure OpenAI, Langchain + Gemini 1.0 Pro, and Google Cloud Transl
 Google Cloud credits are provided for this project. #GeminiSprint hashtag.
 
 ## Installation
-
 ```bash
 $ npm install
 $ cd ./nestjs-genai-translation
+$ npm install
+$
+$ cd ../ng-genai-translation
 $ npm install
 ```
 
@@ -48,3 +50,6 @@ $ docker-compose up -d
 
 - Open the browser and navigate to http://localhost:3000/api
 - Test the API in Swagger
+
+- Open the browser and navigate to http://localhost:4200
+- Use the simple UI to translate text or paragraph
