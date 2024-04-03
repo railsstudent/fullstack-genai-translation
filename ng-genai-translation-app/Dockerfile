@@ -1,11 +1,13 @@
 # Use an official Node.js runtime as the base image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package*.json /usr/src/app
+
+RUN npm install -g @angular/cli
 
 # Install the dependencies
 RUN npm install
@@ -17,4 +19,4 @@ COPY . .
 EXPOSE 4200
 
 # Define the command to run your application
-CMD [ "npm", "start" ]
+CMD [ "ng", "serve", "--host", "0.0.0.0"]
