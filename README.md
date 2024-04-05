@@ -34,7 +34,7 @@ $ npm install
 $ cd ./nestjs-genai-translation
 $ npm install
 $
-$ cd ../ng-genai-translation
+$ cd ../ng-genai-translation-app
 $ npm install
 ```
 

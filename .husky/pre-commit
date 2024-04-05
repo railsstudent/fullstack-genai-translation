@@ -1,6 +1,5 @@
 cd nestjs-genai-translation
 npm run pre-commit
-cd ..
-cd ng-genai-translation-app
+cd ../ng-genai-translation-app
 npm run lint
 cd ..

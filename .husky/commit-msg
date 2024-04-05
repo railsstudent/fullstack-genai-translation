@@ -1,7 +1,6 @@
 cd nestjs-genai-translation
-npm run commitlint ${1}
-cd ..
-cd ng-genai-translation-app
-npm run commitlint ${1}
+npm run commitlint
+cd ../ng-genai-translation-app
+npm run commitlint
 cd ..
 
